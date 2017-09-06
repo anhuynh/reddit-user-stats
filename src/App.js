@@ -30,9 +30,7 @@ class App extends Component {
       .then(res => {
         this.setState({about: res.data.data});
       }).catch(res => {
-        if (res.status === 404) {
-          this.setState({notFound: true});
-        }
+        this.setState({notFound: true});
       });
   }
 
@@ -60,9 +58,7 @@ class App extends Component {
           fetched: { ...this.state.fetched, [type]: true }
         });
       }).catch(res => {
-        if (res.status === 404) {
-          this.setState({notFound: true});
-        }
+        this.setState({notFound: true});
       });
   }
 
@@ -70,7 +66,7 @@ class App extends Component {
     return (
       <div className='App'>
         <div className='App-header'>
-          <img src={logo} width='100' alt='logo' />
+          <img src={logo} className='App-logo' alt='logo' />
           <h2>Reddit User Stats</h2>
           <UserInput onSubmit={this.fetchData} />
         </div>

@@ -1,3 +1,12 @@
+html {
+  font-size: 10px;
+}
+
+h2 {
+  font-size: 2.4rem;
+  font-weight: normal;
+}
+
 .App {
   text-align: center;
 }
@@ -7,4 +16,60 @@
   padding: 20px;
   color: white;
   box-sizing: border-box;
+}
+
+.App-logo {
+  width: 9rem;
+}
+
+/************ UserInput ************/
+
+.userInput {
+  font-size: 1.6rem;
+}
+
+.userInput .pre-input {
+  background-color: #F54B00;
+  height: 2.5em;
+  width: 2.5em;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.userInput div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.userInput input {
+  font-size: 1em;
+  padding-left: 1em;
+  height: 2.5em;
+  width: 25em;
+  box-sizing: border-box;
+  outline-color: #F54B00;
+  transition: outline 0.3s ease-in-out;
+}
+
+.userInput button {
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  font-size: 1em;
+  height: 2.5em;
+  padding: 0 1.5em;
+  transition-duration: 0.3s;
+}
+.userInput button:hover {
+  background-color: #F54B00;
+  color: white;
+}
+
+.userInput .error {
+  display: block;
+  color: #C23628;
+  margin-top: 0.75em;
 }
