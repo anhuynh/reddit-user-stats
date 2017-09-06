@@ -1,19 +1,11 @@
-html {
-  font-size: 10px;
-}
-
-h2 {
-  font-size: 2.4rem;
-  font-weight: normal;
-}
-
 .App {
   text-align: center;
+  color: white;
 }
 
 .App-header {
-  height: 275px;
-  padding: 20px;
+  height: 27rem;
+  padding: 2rem 0 1rem;
   color: white;
   box-sizing: border-box;
 }
@@ -72,4 +64,31 @@ h2 {
   display: block;
   color: #C23628;
   margin-top: 0.75em;
+}
+
+/************ Overview ************/
+
+.overview {
+  font-size: 1.4rem;
+  font-weight: 300;
+  background-color: rgb(52, 52, 52);
+  border-radius: 3px;
+  border-top: 3px solid #F54B00;
+  margin: 0 4rem;
+  padding: 2em;
+}
+
+.overview h2 {
+  font-size: 2em;
+  margin: 0.25em;
+}
+
+.overview h2 a {
+  text-decoration: none;
+  color: #F54B00;
+  transition-duration: 0.3s;
+}
+
+.overview h2 a:hover {
+  color: #EE9168;
 }

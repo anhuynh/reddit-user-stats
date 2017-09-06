@@ -56,7 +56,7 @@ class UserInput extends Component {
 }
 
 UserInput.propTypes = {
-  onSubmit: PropTypes.func
+  onSubmit: PropTypes.func.isRequired
 };
 
 export default UserInput;

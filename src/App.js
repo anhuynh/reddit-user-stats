@@ -5,6 +5,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import UserInput from './components/UserInput';
+import Overview from './components/Overview';
 
 class App extends Component {
   constructor (props) {
@@ -70,6 +71,11 @@ class App extends Component {
           <h2>Reddit User Stats</h2>
           <UserInput onSubmit={this.fetchData} />
         </div>
+        {this.state.fetched.comments && this.state.fetched.submitted &&
+          <div className='overview'>
+            <Overview about={this.state.about} />
+          </div>
+        }
       </div>
     );
   }
