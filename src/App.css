@@ -5,7 +5,7 @@
 
 .App-header {
   height: 27rem;
-  padding: 2rem 0 1rem;
+  padding: 2rem 1rem 1rem;
   color: white;
   box-sizing: border-box;
 }
@@ -14,7 +14,7 @@
   width: 9rem;
 }
 
-/************ UserInput ************/
+/************************ UserInput ************************/
 
 .userInput {
   font-size: 1.6rem;
@@ -63,23 +63,29 @@
 .userInput .error {
   display: block;
   color: #C23628;
-  margin-top: 0.75em;
+  margin-top: 0.5em;
 }
 
-/************ Overview ************/
+/************************ Overview ************************/
 
 .overview {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   font-weight: 300;
   background-color: rgb(52, 52, 52);
   border-radius: 3px;
   border-top: 3px solid #F54B00;
-  margin: 0 4rem;
-  padding: 2em;
+  margin: 0 4rem 3rem;
+  padding: 2em 4em;
+}
+
+.overview hr {
+  margin: 2em 0;
+  height: 2px;
+  border: none;
+  background: rgba(117, 117, 117, 0.21);
 }
 
 .overview h2 {
-  font-size: 2em;
   margin: 0.25em;
 }
 
@@ -91,4 +97,72 @@
 
 .overview h2 a:hover {
   color: #EE9168;
+}
+
+@media (max-width: 425px) {
+  .userInput input {
+    width: 10em;
+  }
+
+  .overview {
+    padding: 2em;
+    margin: 0 2rem 2rem;
+  }
+}
+
+/************************ PostSummary ************************/
+
+.karma-summary {
+  font-size: 1.6rem;
+}
+
+.karma-summary h3 {
+  margin: 0.5em;
+}
+
+.karma-summary .karma-circles {
+  display: flex;
+  flex-direction: column;
+  padding: 0 12em;
+}
+
+@media (max-width: 768px) {
+  .karma-summary .karma-circles {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+}
+
+.karma-summary .karma-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0.5em 0;
+}
+
+.karma-summary .karma-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding-bottom: 0.5em;
+}
+
+.karma-summary .karma-circle div {
+  font-size: 1.5em;
+  border-radius: 50%;
+  border: 3px solid #F54B00;
+  width: 4em;
+  height: 4em;
+  line-height: 4em; /* center text vertically in circle */
+}
+
+.karma-summary .karma-circle span {
+  margin-top: 0.5em;
+}
+
+.karma-summary .controversial div {
+  border-color: #C23628;
 }

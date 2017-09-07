@@ -72,9 +72,7 @@ class App extends Component {
           <UserInput onSubmit={this.fetchData} />
         </div>
         {this.state.fetched.comments && this.state.fetched.submitted &&
-          <div className='overview'>
-            <Overview about={this.state.about} />
-          </div>
+          <Overview about={this.state.about} comments={this.state.comments} submitted={this.state.submitted} />
         }
       </div>
     );

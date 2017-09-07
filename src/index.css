@@ -3,7 +3,13 @@ html {
 }
 
 h2 {
-  font-size: 2.4rem;
+  font-size: 3.2rem;
+  font-weight: 300;
+  margin: 0.5em;
+}
+
+h3 {
+  font-size: 2.6rem;
   font-weight: 300;
 }
 
