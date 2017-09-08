@@ -25,8 +25,6 @@ class App extends Component {
       ...DEFAULT_STATE
     });
 
-    document.title = `/u/${username} - Reddit User Stats`;
-
     this.fetchAbout(username);
     this.fetchHistory(username, 'comments');
     this.fetchHistory(username, 'submitted');
@@ -35,9 +33,10 @@ class App extends Component {
   fetchAbout = (username) => {
     axios.get(`https://www.reddit.com/user/${username}/about/.json`)
       .then(res => {
-        this.setState({about: res.data.data});
+        this.setState({ about: res.data.data });
+        document.title = `/u/${res.data.data.name} - Reddit User Stats`;
       }).catch(res => {
-        this.setState({notFound: true});
+        this.setState({ notFound: true });
       });
   }
 
@@ -61,7 +60,7 @@ class App extends Component {
             fetched: { ...this.state.fetched, [type]: true }
           });
 
-          if (this.state.fetched.comments && this.state.fetched.submitted) this.setState({loading: false});
+          if (this.state.fetched.comments && this.state.fetched.submitted) this.setState({ loading: false });
         }
       }).catch(res => {
         this.setState({
