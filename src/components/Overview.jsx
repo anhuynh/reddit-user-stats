@@ -39,7 +39,7 @@ class Overview extends Component {
   }
 
   getControversiality = () => {
-    if (this.props.comments.length === 0) return 'N/A';
+    if (this.props.comments.length === 0) return 0;
     let count = 0;
 
     this.props.comments.forEach((comment, i) => {

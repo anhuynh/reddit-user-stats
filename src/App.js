@@ -13,12 +13,18 @@ class App extends Component {
 
     this.state = {
       username: '',
+      loading: false,
       ...DEFAULT_STATE
     };
   }
 
   fetchData = (username) => {
-    this.setState({ username, ...DEFAULT_STATE });
+    this.setState({
+      username,
+      loading: true,
+      ...DEFAULT_STATE
+    });
+
     document.title = `/u/${username} - Reddit User Stats`;
 
     this.fetchAbout(username);
@@ -39,13 +45,7 @@ class App extends Component {
     axios.get(`https://www.reddit.com/user/${username}/${type}.json?limit=100&after=${after}`)
       .then(res => {
         let data = res.data.data.children;
-
-        if (data.length === 0) {
-          this.setState({
-            fetched: { ...this.state.fetched, [type]: true }
-          });
-          return;
-        }
+        let allDataFetched = true;
 
         this.setState({
           [type]: this.state[type].concat(data)
@@ -53,13 +53,21 @@ class App extends Component {
 
         if (data.length === 100) { // reddit api limits single listings to 100 items
           this.fetchHistory(username, type, data[99].data.name); // recursively fetch more items
+          allDataFetched = false;
         }
 
-        this.setState({
-          fetched: { ...this.state.fetched, [type]: true }
-        });
+        if (allDataFetched) {
+          this.setState({
+            fetched: { ...this.state.fetched, [type]: true }
+          });
+
+          if (this.state.fetched.comments && this.state.fetched.submitted) this.setState({loading: false});
+        }
       }).catch(res => {
-        this.setState({notFound: true});
+        this.setState({
+          notFound: true,
+          loading: false
+        });
       });
   }
 
@@ -71,6 +79,12 @@ class App extends Component {
           <h2>Reddit User Stats</h2>
           <UserInput onSubmit={this.fetchData} />
         </div>
+        {this.state.loading &&
+          <div className='spinner'>
+            <div className='double-bounce1' />
+            <div className='double-bounce2' />
+          </div>
+        }
         {this.state.fetched.comments && this.state.fetched.submitted &&
           <Overview about={this.state.about} comments={this.state.comments} submitted={this.state.submitted} />
         }
