@@ -161,6 +161,8 @@
 
 .overview h2 {
   margin: 0.25em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .overview h2 a {
@@ -179,7 +181,7 @@
   }
 
   .overview {
-    padding: 2em;
+    padding: 1em;
     margin: 0 2rem 2rem;
   }
 }
