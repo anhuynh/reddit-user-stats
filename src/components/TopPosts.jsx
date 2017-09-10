@@ -70,18 +70,16 @@ function renderComments (comments) {
 function getPostDetails (item, type) {
   const score = item.score === 1 ? `1 point` : `${item.score} points`;
 
-  if (type === 'commented') {
-    const aTag = (<a href={item.link_permalink} className='comment-link'>{`/r/${item.subreddit}`}</a>);
-    return (
-      <div>
-        <span>{`${type} ${moment(item.created_utc * 1000).fromNow()} in `}</span>
-        {aTag}
-        <span>{` with ${score}`}</span>
-      </div>
-    );
-  }
-
-  return <span>{`${type} ${moment(item.created_utc * 1000).fromNow()} in /r/${item.subreddit} with ${score}`}</span>;
+  const aTag = type === 'commented'
+    ? (<a href={item.link_url} className='comment-link'>{item.subreddit_name_prefixed}</a>)
+    : (<a href={`https://reddit.com/r/${item.subreddit}`} className='comment-link'>{item.subreddit_name_prefixed}</a>);
+  return (
+    <div>
+      <span>{`${type} ${moment(item.created_utc * 1000).fromNow()} in `}</span>
+      {aTag}
+      <span>{` with ${score}`}</span>
+    </div>
+  );
 }
 
 TopPosts.propTypes = {

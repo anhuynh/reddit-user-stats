@@ -248,6 +248,8 @@
 
 .top-posts .post-section p{
   margin: 0.25em 0 0.5em 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .top-posts .comment-link {
