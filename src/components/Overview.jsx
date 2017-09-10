@@ -5,6 +5,7 @@ import moment from 'moment';
 import '../App.css';
 
 import KarmaSummary from './KarmaSummary';
+import TopPosts from './TopPosts';
 
 class Overview extends Component {
   getJoinedDateString = (timestamp) => {
@@ -25,15 +26,15 @@ class Overview extends Component {
     });
 
     return {
-      comments: {
+      commentKarma: {
         total: this.props.comments.length,
         karma: commentKarma,
-        karmaPer: this.props.comments.length === 0 ? 'N/A' : Math.round(commentKarma / this.props.comments.length)
+        karmaPer: this.props.comments.length === 0 ? 0 : Math.round(commentKarma / this.props.comments.length)
       },
-      submitted: {
+      submittedKarma: {
         total: this.props.submitted.length,
         karma: submissionKarma,
-        karmaPer: this.props.submitted.length === 0 ? 'N/A' : Math.round(submissionKarma / this.props.submitted.length)
+        karmaPer: this.props.submitted.length === 0 ? 0 : Math.round(submissionKarma / this.props.submitted.length)
       }
     };
   }
@@ -49,16 +50,37 @@ class Overview extends Component {
     return Math.round((count / this.props.comments.length) * 100);
   }
 
+  sortByScore = (array) => {
+    return array.sort((itemA, itemB) => {
+      return itemB.data.score - itemA.data.score;
+    });
+  }
+
   render () {
-    const { about } = this.props;
-    const { comments, submitted } = this.getKarmaSummaries();
+    const { about, comments, submitted } = this.props;
+    const { commentKarma, submittedKarma } = this.getKarmaSummaries();
+    const sortedComments = this.sortByScore(comments);
+    const sortedSubmissions = this.sortByScore(submitted);
 
     return (
       <div className='overview'>
         <h2>Stats for <a href={`https://reddit.com/u/${about.name}`}>{`/u/${about.name}`}</a></h2>
         <span>{this.getJoinedDateString(about.created_utc)}</span>
-        <hr />
-        <KarmaSummary comments={comments} submitted={submitted} controversial={this.getControversiality()} />
+        {(comments.length > 0 || submitted.length > 0) &&
+          <div>
+            <hr />
+            <KarmaSummary
+              comments={commentKarma}
+              submitted={submittedKarma}
+              controversial={this.getControversiality()} />
+            <TopPosts
+              sortedSubmissions={sortedSubmissions}
+              sortedComments={sortedComments} />
+          </div>
+        }
+        {comments.length === 0 && submitted.length === 0 &&
+          <span style={{marginTop: '2em'}}>There are no comments or submissions for this user.</span>
+        }
       </div>
     );
   }

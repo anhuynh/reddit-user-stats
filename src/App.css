@@ -122,6 +122,8 @@
   border-top: 3px solid #F54B00;
   margin: 0 4rem 3rem;
   padding: 2em 4em;
+  display: flex;
+  flex-direction: column;
   -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 1s; /* Firefox < 16 */
   -ms-animation: fadein 1s; /* Internet Explorer */
@@ -165,16 +167,6 @@
   text-overflow: ellipsis;
 }
 
-.overview h2 a {
-  text-decoration: none;
-  color: #F54B00;
-  transition-duration: 0.3s;
-}
-
-.overview h2 a:hover {
-  color: #EE9168;
-}
-
 @media (max-width: 425px) {
   .userInput input {
     width: 10em;
@@ -186,15 +178,7 @@
   }
 }
 
-/************************ PostSummary ************************/
-
-.karma-summary {
-  font-size: 1.6rem;
-}
-
-.karma-summary h3 {
-  margin: 0.5em;
-}
+/************************ KarmaSummary ************************/
 
 .karma-summary .karma-circles {
   display: flex;
@@ -241,4 +225,31 @@
 
 .karma-summary .controversial div {
   border-color: #C23628;
+}
+
+/************************ TopPosts ************************/
+
+.top-posts .post-section {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-size: 1.6rem;
+}
+
+.top-posts .post-section h4 {
+  text-align: center;
+}
+
+.top-posts .post-section span {
+  padding-top: 0.25em;
+  font-size: 0.75em;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.top-posts .post-section p{
+  margin: 0.25em 0 0.5em 0;
+}
+
+.top-posts .comment-link {
+  font-size: 1.4rem;
 }
