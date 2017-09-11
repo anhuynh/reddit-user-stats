@@ -68,16 +68,17 @@ function renderComments (comments) {
 }
 
 function getPostDetails (item, type) {
-  const score = item.score === 1 ? `1 point` : `${item.score} points`;
-
+  const points = (item.score === 1 || item.score === -1) ? ` point` : ` points`;
+  const color = item.score > 0 ? '#F54B00' : '#C23628';
   const aTag = type === 'commented'
-    ? (<a href={item.link_url} className='comment-link'>{item.subreddit_name_prefixed}</a>)
+    ? (<a href={`${item.link_permalink}${item.id}`} className='comment-link'>{item.subreddit_name_prefixed}</a>)
     : (<a href={`https://reddit.com/r/${item.subreddit}`} className='comment-link'>{item.subreddit_name_prefixed}</a>);
+
   return (
     <div>
       <span>{`${type} ${moment(item.created_utc * 1000).fromNow()} in `}</span>
       {aTag}
-      <span>{` with ${score}`}</span>
+      <span>{` with `}</span><span style={{ color }}>{item.score}</span><span>{points}</span>
     </div>
   );
 }
