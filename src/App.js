@@ -35,8 +35,21 @@ class App extends Component {
       .then(res => {
         this.setState({ about: res.data.data });
         document.title = `/u/${res.data.data.name} - Reddit User Stats`;
-      }).catch(res => {
-        this.setState({ notFound: true });
+      }).catch(err => {
+        if (err.response.status === 404) {
+          this.setState({
+            notFound: true,
+            loading: false
+          });
+        } else {
+          this.setState({
+            otherError: {
+              error: err.response.data.error,
+              message: err.response.data.message
+            },
+            loading: false
+          });
+        }
       });
   }
 
@@ -62,11 +75,16 @@ class App extends Component {
 
           if (this.state.fetched.comments && this.state.fetched.submitted) this.setState({ loading: false });
         }
-      }).catch(res => {
-        this.setState({
-          notFound: true,
-          loading: false
-        });
+      }).catch(err => {
+        if (err.response.status !== 404) {
+          this.setState({
+            otherError: {
+              error: err.response.data.error,
+              message: err.response.data.message
+            },
+            loading: false
+          });
+        }
       });
   }
 
@@ -84,6 +102,12 @@ class App extends Component {
             <div className='double-bounce2' />
           </div>
         }
+        {this.state.notFound &&
+          <span className='error'>{`/u/${this.state.username} not found.`}</span>
+        }
+        {this.state.otherError &&
+          <span className='error'>{`${this.state.otherError.error}: ${this.state.otherError.message}`}</span>
+        }
         {this.state.fetched.comments && this.state.fetched.submitted &&
           <Overview about={this.state.about} comments={this.state.comments} submitted={this.state.submitted} />
         }
@@ -100,7 +124,8 @@ const DEFAULT_STATE = {
     comments: false,
     submitted: false
   },
-  notFound: false
+  notFound: false,
+  otherError: undefined
 };
 
 export default App;
