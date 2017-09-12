@@ -19,11 +19,13 @@ class App extends Component {
   }
 
   fetchData = (username) => {
+    // reset data
     this.setState({
       username,
       loading: true,
       ...DEFAULT_STATE
     });
+    document.title = `Reddit User Stats`;
 
     this.fetchAbout(username);
     this.fetchHistory(username, 'comments');

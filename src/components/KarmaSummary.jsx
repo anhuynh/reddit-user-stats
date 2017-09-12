@@ -10,18 +10,24 @@ function KarmaSummary (props) {
     <div className='karma-summary'>
       <h3>Karma Summary</h3>
       <div className='karma-circles'>
-        <div className='karma-row'>
-          {renderKarmaCircle('submitted', submitted)}
-        </div>
-        <div className='karma-row'>
-          {renderKarmaCircle('comments', comments)}
-        </div>
-        <div className='karma-row'>
-          <div className='karma-circle controversial'>
-            <div>{`${controversial}%`}</div>
-            <span>Controversial comments</span>
+        {submitted.total !== 0 &&
+          <div className='karma-row'>
+            {renderKarmaCircle('submitted', submitted)}
           </div>
-        </div>
+        }
+        {comments.total !== 0 &&
+          <div>
+            <div className='karma-row'>
+              {renderKarmaCircle('comments', comments)}
+            </div>
+            <div className='karma-row'>
+              <div className='karma-circle controversial'>
+                <div>{`${controversial}%`}</div>
+                <span>Controversial comments</span>
+              </div>
+            </div>
+          </div>
+        }
       </div>
     </div>
   );
