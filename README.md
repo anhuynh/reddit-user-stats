@@ -3,9 +3,10 @@
 Search for a Reddit user and view their comments and submission stats.
 
 ## TODO:
-* Add best and worst submission/comment
+* ~~Add best and worst submission/comment~~
+* Add top subreddits posted to
+* Karma per subreddit donut chart
 * Add charts for karma of submissions/comments over time
-* Add most subreddit posted to
 * Styling adjustments
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
