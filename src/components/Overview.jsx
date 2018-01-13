@@ -6,6 +6,7 @@ import '../App.css';
 
 import KarmaSummary from './KarmaSummary';
 import TopPosts from './TopPosts';
+import TopSubs from './TopSubs';
 
 class Overview extends Component {
   getJoinedDateString = (timestamp) => {
@@ -97,6 +98,7 @@ class Overview extends Component {
     const { commentKarma, submittedKarma } = this.getKarmaSummaries();
     const sortedComments = this.sortByScore(comments);
     const sortedSubmissions = this.sortByScore(submitted);
+    const combinedPosts = this.combinePosts();
 
     return (
       <div className='overview'>
@@ -112,6 +114,8 @@ class Overview extends Component {
             <TopPosts
               sortedSubmissions={sortedSubmissions}
               sortedComments={sortedComments} />
+            <hr />
+            <TopSubs combinedPosts={combinedPosts} />
           </div>
         }
         {comments.length === 0 && submitted.length === 0 &&
