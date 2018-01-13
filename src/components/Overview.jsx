@@ -57,36 +57,34 @@ class Overview extends Component {
     });
   }
 
-  getTopSubreddits = () => {
+  combinePosts = () => {
     const { submitted, comments } = this.props;
-    let topSubreddits = {};
+    let combinedPosts = {};
 
-    this.countSubs(submitted, topSubreddits);
-    this.countSubs(comments, topSubreddits);
+    this.countSubs(submitted, combinedPosts);
+    this.countSubs(comments, combinedPosts);
 
     // convert to array for sorting
-    topSubreddits = Object.keys(topSubreddits).map(subreddit => {
+    combinedPosts = Object.keys(combinedPosts).map(subreddit => {
       return {
         subreddit,
-        count: topSubreddits[subreddit].count,
-        karma: topSubreddits[subreddit].karma
+        posts: combinedPosts[subreddit].count,
+        karma: combinedPosts[subreddit].karma
       };
     });
 
-    return topSubreddits.sort((subA, subB) => {
-      return subB.karma - subA.karma;
-    });
+    return combinedPosts;
   }
 
-  countSubs = (posts, topSubreddits) => {
+  countSubs = (posts, combinedPosts) => {
     posts.forEach(submission => {
       const data = submission.data;
 
-      if (topSubreddits.hasOwnProperty(data.subreddit)) {
-        topSubreddits[data.subreddit].count++;
-        topSubreddits[data.subreddit].karma += data.score;
+      if (combinedPosts.hasOwnProperty(data.subreddit)) {
+        combinedPosts[data.subreddit].count++;
+        combinedPosts[data.subreddit].karma += data.score;
       } else {
-        topSubreddits[data.subreddit] = {
+        combinedPosts[data.subreddit] = {
           count: 1,
           karma: data.score
         };
