@@ -54,12 +54,14 @@ function renderComments (comments) {
           <h4>Top Comment</h4>
           {getPostDetails(topComment, 'commented')}
           {Parser(marked(topComment.body))}
+          <a href={`${topComment.link_permalink}${topComment.id}`} className='comment-link'>(permalink)</a>
         </Col>
         {lowComment &&
           <Col key={lowComment.name} md={6} className='post-section'>
             <h4>Lowest Comment</h4>
             {getPostDetails(lowComment, 'commented')}
             {Parser(marked(lowComment.body))}
+            <a href={`${lowComment.link_permalink}${lowComment.id}`} className='comment-link'>(permalink)</a>
           </Col>
         }
       </Row>
@@ -70,14 +72,11 @@ function renderComments (comments) {
 function getPostDetails (item, type) {
   const points = (item.score === 1 || item.score === -1) ? ` point` : ` points`;
   const color = item.score > 0 ? '#F54B00' : '#C23628';
-  const aTag = type === 'commented'
-    ? (<a href={`${item.link_permalink}${item.id}`} className='comment-link'>{item.subreddit_name_prefixed}</a>)
-    : (<a href={`https://reddit.com/r/${item.subreddit}`} className='comment-link'>{item.subreddit_name_prefixed}</a>);
 
   return (
     <div>
       <span>{`${type} ${moment(item.created_utc * 1000).fromNow()} in `}</span>
-      {aTag}
+      <a href={`https://reddit.com/r/${item.subreddit}`} className='comment-link'>{item.subreddit_name_prefixed}</a>
       <span>{` with `}</span><span style={{ color }}>{item.score}</span><span>{points}</span>
     </div>
   );

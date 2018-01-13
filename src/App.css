@@ -124,6 +124,7 @@
   background-color: rgb(52, 52, 52);
   border-radius: 3px;
   border-top: 3px solid #F54B00;
+  border-bottom: 3px solid #F54B00;
   margin: 0 4rem 3rem;
   padding: 2em 4em;
   display: flex;
@@ -257,7 +258,7 @@
 }
 
 .top-posts .comment-link {
-  font-size: 1.4rem;
+  font-size: 0.9em;
 }
 
 /************************ TopSubs ************************/
