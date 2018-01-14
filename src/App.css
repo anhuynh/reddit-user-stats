@@ -261,6 +261,12 @@
   font-size: 0.9em;
 }
 
+@media (max-width: 768px) {
+  .top-posts .post-section h4 {
+    margin-top: 1em;
+  }
+}
+
 /************************ TopSubs ************************/
 
 .top-subs p {
