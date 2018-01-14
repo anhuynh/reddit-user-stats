@@ -6,7 +6,7 @@ import { Cell, PieChart, Pie, ResponsiveContainer, Tooltip } from 'recharts';
 import '../App.css';
 
 function DonutChart (props) {
-  const colors = ['#F54B00', '#62625A', '#C5C5BD', '#ACACAC', '#949C9C', '#6A6A6A', '#A4A4A4', '#B4B4BD'];
+  const colors = ['#992F00', '#CC3F00', '#F54B00', '#F56D31', '#F58F62', '#F5B193', '#F5C7B2'];
 
   return (
     <Col md={6} style={{height: '30rem'}}>
