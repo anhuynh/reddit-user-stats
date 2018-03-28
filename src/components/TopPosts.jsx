@@ -75,9 +75,14 @@ function getPostDetails (item, type) {
 
   return (
     <div>
-      <span>{`${type} ${moment(item.created_utc * 1000).fromNow()} in `}</span>
-      <a href={`https://reddit.com/r/${item.subreddit}`} className='comment-link'>{item.subreddit_name_prefixed}</a>
-      <span>{` with `}</span><span style={{ color }}>{item.score}</span><span>{points}</span>
+      <span className='subtitle'>
+        {`${type} ${moment(item.created_utc * 1000).fromNow()} in `}
+        <a href={`https://reddit.com/r/${item.subreddit}`} className='comment-link'>{item.subreddit_name_prefixed}</a>
+        {` with `}<span style={{ color }}>{item.score}</span>{points}
+      </span>
+      {type === 'submitted' &&
+        <span className='subtitle'>{` and `}<span style={{ color }}>{item.num_comments}</span> comments</span>
+      }
     </div>
   );
 }

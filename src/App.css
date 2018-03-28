@@ -245,20 +245,20 @@
   text-align: center;
 }
 
-.top-posts .post-section span {
+.top-posts .post-section .subtitle {
   padding-top: 0.25em;
   font-size: 0.75em;
   color: rgba(255, 255, 255, 0.75);
 }
 
-.top-posts .post-section p{
+.top-posts .subtitle .comment-link {
+  font-size: 1.2em;
+}
+
+.top-posts .post-section p {
   margin: 0.25em 0;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.top-posts .comment-link {
-  font-size: 0.9em;
 }
 
 @media (max-width: 768px) {
