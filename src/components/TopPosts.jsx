@@ -7,6 +7,7 @@ import Parser from 'html-react-parser';
 import marked from 'marked';
 
 import '../App.css';
+import types from './typesEnum'
 
 function TopPosts (props) {
   return (
@@ -28,13 +29,13 @@ function renderSubmissions (submissions) {
         <Col key={topSubmission.name} md={6} className='post-section'>
           <h4>Top Submission</h4>
           <a href={`https://reddit.com${topSubmission.permalink}`}>{topSubmission.title}</a>
-          {getPostDetails(topSubmission, 'submitted')}
+          {getPostDetails(topSubmission, types.SUBMITTED)}
         </Col>
         {lowSubmission &&
           <Col key={lowSubmission.name} md={6} className='post-section'>
             <h4>Lowest Submission</h4>
             <a href={`https://reddit.com${lowSubmission.permalink}`}>{lowSubmission.title}</a>
-            {getPostDetails(lowSubmission, 'submitted')}
+            {getPostDetails(lowSubmission, types.SUBMITTED)}
           </Col>
         }
       </Row>
@@ -80,7 +81,7 @@ function getPostDetails (item, type) {
         <a href={`https://reddit.com/r/${item.subreddit}`} className='comment-link'>{item.subreddit_name_prefixed}</a>
         {` with `}<span style={{ color }}>{item.score}</span>{points}
       </span>
-      {type === 'submitted' &&
+      {type === types.SUBMITTED &&
         <span className='subtitle'>{` and `}<span style={{ color }}>{item.num_comments}</span> comments</span>
       }
     </div>

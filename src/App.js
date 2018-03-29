@@ -4,6 +4,7 @@ import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
+import types from './components/typesEnum'
 import UserInput from './components/UserInput';
 import Overview from './components/Overview';
 
@@ -28,8 +29,8 @@ class App extends Component {
     document.title = `Reddit User Stats`;
 
     this.fetchAbout(username);
-    this.fetchHistory(username, 'comments');
-    this.fetchHistory(username, 'submitted');
+    this.fetchHistory(username, types.COMMENTS);
+    this.fetchHistory(username, types.SUBMITTED);
   }
 
   fetchAbout = (username) => {

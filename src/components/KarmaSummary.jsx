@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import '../App.css';
+import types from './typesEnum'
 
 function KarmaSummary (props) {
   const { comments, submitted, controversial } = props;
@@ -12,13 +13,13 @@ function KarmaSummary (props) {
       <div className='karma-circles'>
         {submitted.total !== 0 &&
           <div className='karma-row'>
-            {renderKarmaCircle('submitted', submitted)}
+            {renderKarmaCircle(submitted, types.SUBMITTED)}
           </div>
         }
         {comments.total !== 0 &&
           <div>
             <div className='karma-row'>
-              {renderKarmaCircle('comments', comments)}
+              {renderKarmaCircle(comments, types.COMMENTS)}
             </div>
             <div className='karma-row'>
               <div className='karma-circle controversial'>
@@ -35,7 +36,7 @@ function KarmaSummary (props) {
 
 function renderKarmaCircle (type, data) {
   let combined = [];
-  if (type === 'comments') {
+  if (type === types.COMMENTS) {
     combined = [
       {
         value: data.total,
@@ -50,7 +51,7 @@ function renderKarmaCircle (type, data) {
         subtitle: 'Karma per comment'
       }
     ];
-  } else if (type === 'submitted') {
+  } else if (type === types.SUBMITTED) {
     combined = [
       {
         value: data.total,
