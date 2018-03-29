@@ -1,5 +1,4 @@
-# Reddit User Stats
-
+![Reddit User Stats](userstats.png)
 Search for a Reddit user and view their comments and submission stats.
 
 ## TODO:
