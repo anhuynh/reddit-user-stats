@@ -7,7 +7,7 @@ import Parser from 'html-react-parser';
 import marked from 'marked';
 
 import '../App.css';
-import types from './typesEnum'
+import {types, titles, ranks} from './typesEnum'
 
 function TopPosts (props) {
   return (
@@ -26,17 +26,9 @@ function renderSubmissions (submissions) {
     <div>
       <hr />
       <Row>
-        <Col key={topSubmission.name} md={6} className='post-section'>
-          <h4>Top Submission</h4>
-          <a href={`https://reddit.com${topSubmission.permalink}`}>{topSubmission.title}</a>
-          {getPostDetails(topSubmission, types.SUBMITTED)}
-        </Col>
+        {renderSection(topSubmission, types.SUBMITTED, ranks.TOP)}
         {lowSubmission &&
-          <Col key={lowSubmission.name} md={6} className='post-section'>
-            <h4>Lowest Submission</h4>
-            <a href={`https://reddit.com${lowSubmission.permalink}`}>{lowSubmission.title}</a>
-            {getPostDetails(lowSubmission, types.SUBMITTED)}
-          </Col>
+          renderSection(lowSubmission, types.SUBMITTED, ranks.LOW)
         }
       </Row>
     </div>
@@ -51,38 +43,56 @@ function renderComments (comments) {
     <div>
       <hr />
       <Row>
-        <Col key={topComment.name} md={6} className='post-section'>
-          <h4>Top Comment</h4>
-          {getPostDetails(topComment, 'commented')}
-          {Parser(marked(topComment.body))}
-          <a href={`${topComment.link_permalink}${topComment.id}`} className='comment-link'>(permalink)</a>
-        </Col>
+        {renderSection(topComment, types.COMMENTS, ranks.TOP)}
         {lowComment &&
-          <Col key={lowComment.name} md={6} className='post-section'>
-            <h4>Lowest Comment</h4>
-            {getPostDetails(lowComment, 'commented')}
-            {Parser(marked(lowComment.body))}
-            <a href={`${lowComment.link_permalink}${lowComment.id}`} className='comment-link'>(permalink)</a>
-          </Col>
+          renderSection(lowComment, types.COMMENTS, ranks.LOW)
         }
       </Row>
     </div>
   );
 }
 
-function getPostDetails (item, type) {
-  const points = (item.score === 1 || item.score === -1) ? ` point` : ` points`;
-  const color = item.score > 0 ? '#F54B00' : '#C23628';
+function renderSection (post, postType, type) {
+  const title = titles[postType];
+  const postTitle = postType === types.SUBMITTED
+    ? (<a href={`https://reddit.com${post.permalink}`}>{post.title}</a>) : '';
+  let postDetailType = postType;
+  let postBody = '';
+
+  if (postType === types.COMMENTS) {
+    postDetailType = 'commented';
+    postBody = (
+      <div>
+        {Parser(marked(post.body))}
+        <a href={`${post.link_permalink}${post.id}`} className='comment-link'>(permalink)</a>
+      </div>
+    );
+  }
+
+  return (
+    <Col key={post.name} md={6} className='post-section'>
+      <h4>{`${type} ${title}`}</h4>
+      {postTitle}
+      {getPostDetails(post, postDetailType)}
+      {postBody}
+    </Col>
+  );
+}
+
+function getPostDetails (post, type) {
+  const points = (post.score === 1 || post.score === -1) ? ' point' : ' points';
+  const comments = post.num_comments === 1 ? ' comment' : ' comments';
+  const color = post.score > 0 ? '#F54B00' : '#C23628';
 
   return (
     <div>
       <span className='subtitle'>
-        {`${type} ${moment(item.created_utc * 1000).fromNow()} in `}
-        <a href={`https://reddit.com/r/${item.subreddit}`} className='comment-link'>{item.subreddit_name_prefixed}</a>
-        {` with `}<span style={{ color }}>{item.score}</span>{points}
+        {`${type} ${moment(post.created_utc * 1000).fromNow()} in `}
+        <a href={`https://reddit.com/r/${post.subreddit}`} className='comment-link'>{post.subreddit_name_prefixed}</a>
+        {` with `}<span style={{ color }}>{post.score}</span>{points}
       </span>
       {type === types.SUBMITTED &&
-        <span className='subtitle'>{` and `}<span style={{ color }}>{item.num_comments}</span> comments</span>
+        <span className='subtitle'>{` and `}<span style={{ color }}>{post.num_comments}</span>{comments}</span>
       }
     </div>
   );

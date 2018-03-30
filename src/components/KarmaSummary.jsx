@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import '../App.css';
-import types from './typesEnum'
+import {types, titles} from './typesEnum'
 
 function KarmaSummary (props) {
   const { comments, submitted, controversial } = props;
@@ -34,39 +34,23 @@ function KarmaSummary (props) {
   );
 };
 
-function renderKarmaCircle (type, data) {
-  let combined = [];
-  if (type === types.COMMENTS) {
-    combined = [
-      {
-        value: data.total,
-        subtitle: 'Comments'
-      },
-      {
-        value: data.karma,
-        subtitle: 'Comment karma'
-      },
-      {
-        value: data.karmaPer,
-        subtitle: 'Karma per comment'
-      }
-    ];
-  } else if (type === types.SUBMITTED) {
-    combined = [
-      {
-        value: data.total,
-        subtitle: 'Submissions'
-      },
-      {
-        value: data.karma,
-        subtitle: 'Submission karma'
-      },
-      {
-        value: data.karmaPer,
-        subtitle: 'Karma per submission'
-      }
-    ];
-  }
+function renderKarmaCircle (data, type) {
+  const typeTitle = titles[type];
+  const combined = [
+    {
+      value: data.total,
+      subtitle: `${typeTitle}s`
+    },
+    {
+      value: data.karma,
+      subtitle: `${typeTitle} Karma`
+    },
+    {
+      value: data.karmaPer,
+      subtitle: `Karma per ${typeTitle}`
+    }
+  ];
+
   return combined.map(item => {
     return (
       <div key={item.subtitle} className='karma-circle'>

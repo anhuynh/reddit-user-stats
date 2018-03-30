@@ -4,7 +4,7 @@ import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
-import types from './components/typesEnum'
+import {types} from './components/typesEnum'
 import UserInput from './components/UserInput';
 import Overview from './components/Overview';
 
