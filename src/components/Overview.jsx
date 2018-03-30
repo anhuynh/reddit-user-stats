@@ -62,8 +62,8 @@ class Overview extends Component {
     const { submitted, comments } = this.props;
     let combinedPosts = {};
 
-    this.countSubs(submitted, combinedPosts);
-    this.countSubs(comments, combinedPosts);
+    combinedPosts = this.countSubs(submitted, combinedPosts);
+    combinedPosts = this.countSubs(comments, combinedPosts);
 
     // convert to array for sorting
     combinedPosts = Object.keys(combinedPosts).map(subreddit => {
@@ -77,7 +77,9 @@ class Overview extends Component {
     return combinedPosts;
   }
 
-  countSubs = (posts, combinedPosts) => {
+  countSubs = (posts, postCounts) => {
+    let combinedPosts = postCounts;
+
     posts.forEach(submission => {
       const data = submission.data;
 
@@ -91,6 +93,8 @@ class Overview extends Component {
         };
       }
     });
+
+    return combinedPosts
   }
 
   render () {
